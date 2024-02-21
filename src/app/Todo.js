@@ -1,12 +1,18 @@
-import { useState } from "react";
+import React,{ useState } from "react";
 
 function Todo() {
     const [tarefa, setTarefa] = useState('');
     const [dataConc, setDataConc] = useState(new Date());
-    const [listaTarefas, setLista] = useState([]);
+    const [listaTarefas, setListaTarefas] = useState([]);
+    const [update,setUpdate]=useState("");
 
-    const addTarefa = () => {
-        alert("Ola");
+    function addTarefa(){
+        let novoItem = {"tarefa":tarefa, "dataConc":dataConc};
+        let lista = listaTarefas==null?[]:listaTarefas;
+        lista.push(novoItem);
+        setListaTarefas(lista)
+        setUpdate(update+"1")
+        console.log(lista)
     }
 
     return <>
@@ -28,7 +34,17 @@ function Todo() {
 
         <div className="row mt-5">
             <div className="col-md-4 col-sm-9"><input className='form-control' type='button' onClick={() => {addTarefa() }} value={"Adicionar Tarefa"} /></div>
-            
+        </div>
+
+        <div>
+           <ul>
+            {typeof listaTarefas!=null&&listaTarefas.map((tarefa,index)=>
+            <div key={index} className="fo">
+                <h2>{tarefa.tarefa}</h2>
+                <h6>{tarefa.dataConc}</h6>
+                {/*index*/}
+            </div> )}
+           </ul> 
         </div>
     </>;
 }
